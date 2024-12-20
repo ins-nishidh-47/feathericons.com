@@ -74,7 +74,7 @@ function IndexPage({ location }) {
                 Object.keys(icons).length
               } icons (Press "/" to focus)`}
               value={query || ''}
-              onChange={event => setQuery(event.target.value)}
+              onChange={setQuery}
             />
           </div>
           <div sx={{ paddingX: 4 }}>

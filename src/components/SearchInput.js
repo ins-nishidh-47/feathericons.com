@@ -19,6 +19,20 @@ function SearchInput({ placeholder, value, onChange, ...props }) {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  function handleChange(event) {
+    const currentCaret = inputElement.current;
+    const caretPosition = currentCaret.selectionStart; // will Save caret position
+  
+    if (onChange) {
+      onChange(event.target.value); // Update the value
+    }
+  
+    // Restore caret position after value update
+    setTimeout(() => {
+      currentCaret.setSelectionRange(caretPosition, caretPosition);
+    }, 0);
+  }
+
   return (
     <div css={{ position: 'relative' }} {...props}>
       <div
@@ -39,7 +53,7 @@ function SearchInput({ placeholder, value, onChange, ...props }) {
         aria-label="Search"
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         sx={{
           width: '100%',
           margin: 0,
